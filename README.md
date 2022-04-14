@@ -1,2 +1,2 @@
 # ICA-fMRI
-Denoising functional MRI data based on Independent Component Analysis
+Denoising functional MRI data based on Independent Component Analysis.

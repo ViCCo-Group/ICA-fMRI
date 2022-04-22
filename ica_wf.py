@@ -23,8 +23,8 @@ def make_subject_ica_wf():
     Example Inputs:
         wf.inputs.inputspec.bold_file = '/../preproc_bold.nii.gz'
         wf.inputs.inputspec.mask_file = '/../brain_mask.nii.gz'
-        wf.inputs.inputspec.hpf_sec = 120.0
         wf.inputs.inputspec.tr = 1.5
+        wf.inputs.inputspec.hpf = 120.0/tr
         wf.inputs.inputspec.fwhm = 4.0
         wf.inputs.inputspec.out_dir = '/results/melodic'
 
@@ -41,8 +41,8 @@ def make_subject_ica_wf():
         IdentityInterface(
             fields=['bold_file',
                     'mask_file',
-                    'hpf_sec',
                     'tr',
+                    'hpf',
                     'fwhm',
                     'out_dir']
                     ),
@@ -55,21 +55,23 @@ def make_subject_ica_wf():
             output_names=['smooth_thresh']),
             name='calcthresh'
     )
-    susan = Node(SUSAN(fwhm=fwhm), name='susan') # requires 
+    susan = Node(SUSAN(), name='susan') # requires 
     # ... temporal filtering
-    tfilt = Node(TemporalFilter(highpass_sigma=float(hpf_sec/tr)), name='tfilt')
+    tfilt = Node(TemporalFilter(), name='tfilt')
     # ... ICA
-    melodic = Node(MELODIC(tr_sec=tr, out_all=True, no_bet=True, report=True), name='melodic')
+    melodic = Node(MELODIC(out_all=True, no_bet=True, report=True), name='melodic')
     
     # connect nodes in workflow
     wf = Workflow(name='melodicwf')
     wf.connect([
         (inputspec, calcthresh, [('bold_file', 'boldfile'),
                                  ('mask_file', 'maskfile')]),
-        (inputspec, susan, [('bold_file', 'in_file')]),
+        (inputspec, susan, [('bold_file', 'in_file'),
+                            ('fwhm', 'fwhm')]),
+        (inputspec, tfilt, [('hpf', 'highpass_sigma')]),
         (inputspec, melodic, [('mask_file', 'mask'),
-                              ('out_dir', 'out_dir')]),
-        
+                              ('out_dir', 'out_dir'),
+                              ('tr', 'tr_sec')]),
         (calcthresh, susan, [('smooth_thresh', 'brightness_threshold')]),
         (susan, tfilt, [('smoothed_file', 'in_file')]),
         (tfilt, melodic, [('out_file', 'in_files')])

@@ -1,0 +1,14 @@
+strict digraph  {
+"inputspec (utility)";
+"calcthresh (utility)";
+"susan (fsl)";
+"tfilt (fsl)";
+"melodic (fsl)";
+"inputspec (utility)" -> "calcthresh (utility)";
+"inputspec (utility)" -> "susan (fsl)";
+"inputspec (utility)" -> "tfilt (fsl)";
+"inputspec (utility)" -> "melodic (fsl)";
+"calcthresh (utility)" -> "susan (fsl)";
+"susan (fsl)" -> "tfilt (fsl)";
+"tfilt (fsl)" -> "melodic (fsl)";
+}

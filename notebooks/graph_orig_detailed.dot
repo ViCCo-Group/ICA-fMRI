@@ -1,0 +1,19 @@
+digraph structs {
+node [shape=record];
+melodicwfinputspec [label="{IN}|{ inputspec | utility |  }|{OUT|<outboldfile> bold_file|<outfwhm> fwhm|<outhpf> hpf|<outmaskfile> mask_file|<outoutdir> out_dir|<outtr> tr}"];
+melodicwfcalcthresh [label="{IN|<inboldfile> boldfile|<inmaskfile> maskfile}|{ calcthresh | utility |  }|{OUT|<outsmooththresh> smooth_thresh}"];
+melodicwfsusan [label="{IN|<inbrightnessthreshold> brightness_threshold|<infwhm> fwhm|<ininfile> in_file}|{ susan | fsl |  }|{OUT|<outsmoothedfile> smoothed_file}"];
+melodicwftfilt [label="{IN|<inhighpasssigma> highpass_sigma|<ininfile> in_file}|{ tfilt | fsl |  }|{OUT|<outoutfile> out_file}"];
+melodicwfmelodic [label="{IN|<ininfiles> in_files|<inmask> mask|<inoutdir> out_dir|<intrsec> tr_sec}|{ melodic | fsl |  }|{OUT}"];
+melodicwfcalcthresh:outsmooththresh:e -> melodicwfsusan:inbrightnessthreshold:w;
+melodicwfinputspec:outboldfile:e -> melodicwfcalcthresh:inboldfile:w;
+melodicwfinputspec:outboldfile:e -> melodicwfsusan:ininfile:w;
+melodicwfinputspec:outfwhm:e -> melodicwfsusan:infwhm:w;
+melodicwfinputspec:outhpf:e -> melodicwftfilt:inhighpasssigma:w;
+melodicwfinputspec:outmaskfile:e -> melodicwfcalcthresh:inmaskfile:w;
+melodicwfinputspec:outmaskfile:e -> melodicwfmelodic:inmask:w;
+melodicwfinputspec:outoutdir:e -> melodicwfmelodic:inoutdir:w;
+melodicwfinputspec:outtr:e -> melodicwfmelodic:intrsec:w;
+melodicwfsusan:outsmoothedfile:e -> melodicwftfilt:ininfile:w;
+melodicwftfilt:outoutfile:e -> melodicwfmelodic:ininfiles:w;
+}

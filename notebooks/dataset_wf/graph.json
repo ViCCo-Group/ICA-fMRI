@@ -1,0 +1,1082 @@
+[
+    {
+        "group": 1,
+        "imports": [],
+        "name": "000_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "000_calcthresh"
+        ],
+        "name": "001_susan",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "001_susan"
+        ],
+        "name": "002_tfilt",
+        "size": 1
+    },
+    {
+        "group": 1,
+        "imports": [
+            "002_tfilt"
+        ],
+        "name": "003_melodic",
+        "size": 1
+    },
+    {
+        "group": 2,
+        "imports": [],
+        "name": "004_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 2,
+        "imports": [
+            "004_calcthresh"
+        ],
+        "name": "005_susan",
+        "size": 1
+    },
+    {
+        "group": 2,
+        "imports": [
+            "005_susan"
+        ],
+        "name": "006_tfilt",
+        "size": 1
+    },
+    {
+        "group": 2,
+        "imports": [
+            "006_tfilt"
+        ],
+        "name": "007_melodic",
+        "size": 1
+    },
+    {
+        "group": 3,
+        "imports": [],
+        "name": "008_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 3,
+        "imports": [
+            "008_calcthresh"
+        ],
+        "name": "009_susan",
+        "size": 1
+    },
+    {
+        "group": 3,
+        "imports": [
+            "009_susan"
+        ],
+        "name": "010_tfilt",
+        "size": 1
+    },
+    {
+        "group": 3,
+        "imports": [
+            "010_tfilt"
+        ],
+        "name": "011_melodic",
+        "size": 1
+    },
+    {
+        "group": 4,
+        "imports": [],
+        "name": "012_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 4,
+        "imports": [
+            "012_calcthresh"
+        ],
+        "name": "013_susan",
+        "size": 1
+    },
+    {
+        "group": 4,
+        "imports": [
+            "013_susan"
+        ],
+        "name": "014_tfilt",
+        "size": 1
+    },
+    {
+        "group": 4,
+        "imports": [
+            "014_tfilt"
+        ],
+        "name": "015_melodic",
+        "size": 1
+    },
+    {
+        "group": 5,
+        "imports": [],
+        "name": "016_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 5,
+        "imports": [
+            "016_calcthresh"
+        ],
+        "name": "017_susan",
+        "size": 1
+    },
+    {
+        "group": 5,
+        "imports": [
+            "017_susan"
+        ],
+        "name": "018_tfilt",
+        "size": 1
+    },
+    {
+        "group": 5,
+        "imports": [
+            "018_tfilt"
+        ],
+        "name": "019_melodic",
+        "size": 1
+    },
+    {
+        "group": 6,
+        "imports": [],
+        "name": "020_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 6,
+        "imports": [
+            "020_calcthresh"
+        ],
+        "name": "021_susan",
+        "size": 1
+    },
+    {
+        "group": 6,
+        "imports": [
+            "021_susan"
+        ],
+        "name": "022_tfilt",
+        "size": 1
+    },
+    {
+        "group": 6,
+        "imports": [
+            "022_tfilt"
+        ],
+        "name": "023_melodic",
+        "size": 1
+    },
+    {
+        "group": 7,
+        "imports": [],
+        "name": "024_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 7,
+        "imports": [
+            "024_calcthresh"
+        ],
+        "name": "025_susan",
+        "size": 1
+    },
+    {
+        "group": 7,
+        "imports": [
+            "025_susan"
+        ],
+        "name": "026_tfilt",
+        "size": 1
+    },
+    {
+        "group": 7,
+        "imports": [
+            "026_tfilt"
+        ],
+        "name": "027_melodic",
+        "size": 1
+    },
+    {
+        "group": 8,
+        "imports": [],
+        "name": "028_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 8,
+        "imports": [
+            "028_calcthresh"
+        ],
+        "name": "029_susan",
+        "size": 1
+    },
+    {
+        "group": 8,
+        "imports": [
+            "029_susan"
+        ],
+        "name": "030_tfilt",
+        "size": 1
+    },
+    {
+        "group": 8,
+        "imports": [
+            "030_tfilt"
+        ],
+        "name": "031_melodic",
+        "size": 1
+    },
+    {
+        "group": 9,
+        "imports": [],
+        "name": "032_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 9,
+        "imports": [
+            "032_calcthresh"
+        ],
+        "name": "033_susan",
+        "size": 1
+    },
+    {
+        "group": 9,
+        "imports": [
+            "033_susan"
+        ],
+        "name": "034_tfilt",
+        "size": 1
+    },
+    {
+        "group": 9,
+        "imports": [
+            "034_tfilt"
+        ],
+        "name": "035_melodic",
+        "size": 1
+    },
+    {
+        "group": 10,
+        "imports": [],
+        "name": "036_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 10,
+        "imports": [
+            "036_calcthresh"
+        ],
+        "name": "037_susan",
+        "size": 1
+    },
+    {
+        "group": 10,
+        "imports": [
+            "037_susan"
+        ],
+        "name": "038_tfilt",
+        "size": 1
+    },
+    {
+        "group": 10,
+        "imports": [
+            "038_tfilt"
+        ],
+        "name": "039_melodic",
+        "size": 1
+    },
+    {
+        "group": 11,
+        "imports": [],
+        "name": "040_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 11,
+        "imports": [
+            "040_calcthresh"
+        ],
+        "name": "041_susan",
+        "size": 1
+    },
+    {
+        "group": 11,
+        "imports": [
+            "041_susan"
+        ],
+        "name": "042_tfilt",
+        "size": 1
+    },
+    {
+        "group": 11,
+        "imports": [
+            "042_tfilt"
+        ],
+        "name": "043_melodic",
+        "size": 1
+    },
+    {
+        "group": 12,
+        "imports": [],
+        "name": "044_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 12,
+        "imports": [
+            "044_calcthresh"
+        ],
+        "name": "045_susan",
+        "size": 1
+    },
+    {
+        "group": 12,
+        "imports": [
+            "045_susan"
+        ],
+        "name": "046_tfilt",
+        "size": 1
+    },
+    {
+        "group": 12,
+        "imports": [
+            "046_tfilt"
+        ],
+        "name": "047_melodic",
+        "size": 1
+    },
+    {
+        "group": 13,
+        "imports": [],
+        "name": "048_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 13,
+        "imports": [
+            "048_calcthresh"
+        ],
+        "name": "049_susan",
+        "size": 1
+    },
+    {
+        "group": 13,
+        "imports": [
+            "049_susan"
+        ],
+        "name": "050_tfilt",
+        "size": 1
+    },
+    {
+        "group": 13,
+        "imports": [
+            "050_tfilt"
+        ],
+        "name": "051_melodic",
+        "size": 1
+    },
+    {
+        "group": 14,
+        "imports": [],
+        "name": "052_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 14,
+        "imports": [
+            "052_calcthresh"
+        ],
+        "name": "053_susan",
+        "size": 1
+    },
+    {
+        "group": 14,
+        "imports": [
+            "053_susan"
+        ],
+        "name": "054_tfilt",
+        "size": 1
+    },
+    {
+        "group": 14,
+        "imports": [
+            "054_tfilt"
+        ],
+        "name": "055_melodic",
+        "size": 1
+    },
+    {
+        "group": 15,
+        "imports": [],
+        "name": "056_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 15,
+        "imports": [
+            "056_calcthresh"
+        ],
+        "name": "057_susan",
+        "size": 1
+    },
+    {
+        "group": 15,
+        "imports": [
+            "057_susan"
+        ],
+        "name": "058_tfilt",
+        "size": 1
+    },
+    {
+        "group": 15,
+        "imports": [
+            "058_tfilt"
+        ],
+        "name": "059_melodic",
+        "size": 1
+    },
+    {
+        "group": 16,
+        "imports": [],
+        "name": "060_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 16,
+        "imports": [
+            "060_calcthresh"
+        ],
+        "name": "061_susan",
+        "size": 1
+    },
+    {
+        "group": 16,
+        "imports": [
+            "061_susan"
+        ],
+        "name": "062_tfilt",
+        "size": 1
+    },
+    {
+        "group": 16,
+        "imports": [
+            "062_tfilt"
+        ],
+        "name": "063_melodic",
+        "size": 1
+    },
+    {
+        "group": 17,
+        "imports": [],
+        "name": "064_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 17,
+        "imports": [
+            "064_calcthresh"
+        ],
+        "name": "065_susan",
+        "size": 1
+    },
+    {
+        "group": 17,
+        "imports": [
+            "065_susan"
+        ],
+        "name": "066_tfilt",
+        "size": 1
+    },
+    {
+        "group": 17,
+        "imports": [
+            "066_tfilt"
+        ],
+        "name": "067_melodic",
+        "size": 1
+    },
+    {
+        "group": 18,
+        "imports": [],
+        "name": "068_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 18,
+        "imports": [
+            "068_calcthresh"
+        ],
+        "name": "069_susan",
+        "size": 1
+    },
+    {
+        "group": 18,
+        "imports": [
+            "069_susan"
+        ],
+        "name": "070_tfilt",
+        "size": 1
+    },
+    {
+        "group": 18,
+        "imports": [
+            "070_tfilt"
+        ],
+        "name": "071_melodic",
+        "size": 1
+    },
+    {
+        "group": 19,
+        "imports": [],
+        "name": "072_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 19,
+        "imports": [
+            "072_calcthresh"
+        ],
+        "name": "073_susan",
+        "size": 1
+    },
+    {
+        "group": 19,
+        "imports": [
+            "073_susan"
+        ],
+        "name": "074_tfilt",
+        "size": 1
+    },
+    {
+        "group": 19,
+        "imports": [
+            "074_tfilt"
+        ],
+        "name": "075_melodic",
+        "size": 1
+    },
+    {
+        "group": 20,
+        "imports": [],
+        "name": "076_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 20,
+        "imports": [
+            "076_calcthresh"
+        ],
+        "name": "077_susan",
+        "size": 1
+    },
+    {
+        "group": 20,
+        "imports": [
+            "077_susan"
+        ],
+        "name": "078_tfilt",
+        "size": 1
+    },
+    {
+        "group": 20,
+        "imports": [
+            "078_tfilt"
+        ],
+        "name": "079_melodic",
+        "size": 1
+    },
+    {
+        "group": 21,
+        "imports": [],
+        "name": "080_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 21,
+        "imports": [
+            "080_calcthresh"
+        ],
+        "name": "081_susan",
+        "size": 1
+    },
+    {
+        "group": 21,
+        "imports": [
+            "081_susan"
+        ],
+        "name": "082_tfilt",
+        "size": 1
+    },
+    {
+        "group": 21,
+        "imports": [
+            "082_tfilt"
+        ],
+        "name": "083_melodic",
+        "size": 1
+    },
+    {
+        "group": 22,
+        "imports": [],
+        "name": "084_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 22,
+        "imports": [
+            "084_calcthresh"
+        ],
+        "name": "085_susan",
+        "size": 1
+    },
+    {
+        "group": 22,
+        "imports": [
+            "085_susan"
+        ],
+        "name": "086_tfilt",
+        "size": 1
+    },
+    {
+        "group": 22,
+        "imports": [
+            "086_tfilt"
+        ],
+        "name": "087_melodic",
+        "size": 1
+    },
+    {
+        "group": 23,
+        "imports": [],
+        "name": "088_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 23,
+        "imports": [
+            "088_calcthresh"
+        ],
+        "name": "089_susan",
+        "size": 1
+    },
+    {
+        "group": 23,
+        "imports": [
+            "089_susan"
+        ],
+        "name": "090_tfilt",
+        "size": 1
+    },
+    {
+        "group": 23,
+        "imports": [
+            "090_tfilt"
+        ],
+        "name": "091_melodic",
+        "size": 1
+    },
+    {
+        "group": 24,
+        "imports": [],
+        "name": "092_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 24,
+        "imports": [
+            "092_calcthresh"
+        ],
+        "name": "093_susan",
+        "size": 1
+    },
+    {
+        "group": 24,
+        "imports": [
+            "093_susan"
+        ],
+        "name": "094_tfilt",
+        "size": 1
+    },
+    {
+        "group": 24,
+        "imports": [
+            "094_tfilt"
+        ],
+        "name": "095_melodic",
+        "size": 1
+    },
+    {
+        "group": 25,
+        "imports": [],
+        "name": "096_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 25,
+        "imports": [
+            "096_calcthresh"
+        ],
+        "name": "097_susan",
+        "size": 1
+    },
+    {
+        "group": 25,
+        "imports": [
+            "097_susan"
+        ],
+        "name": "098_tfilt",
+        "size": 1
+    },
+    {
+        "group": 25,
+        "imports": [
+            "098_tfilt"
+        ],
+        "name": "099_melodic",
+        "size": 1
+    },
+    {
+        "group": 26,
+        "imports": [],
+        "name": "100_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 26,
+        "imports": [
+            "100_calcthresh"
+        ],
+        "name": "101_susan",
+        "size": 1
+    },
+    {
+        "group": 26,
+        "imports": [
+            "101_susan"
+        ],
+        "name": "102_tfilt",
+        "size": 1
+    },
+    {
+        "group": 26,
+        "imports": [
+            "102_tfilt"
+        ],
+        "name": "103_melodic",
+        "size": 1
+    },
+    {
+        "group": 27,
+        "imports": [],
+        "name": "104_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 27,
+        "imports": [
+            "104_calcthresh"
+        ],
+        "name": "105_susan",
+        "size": 1
+    },
+    {
+        "group": 27,
+        "imports": [
+            "105_susan"
+        ],
+        "name": "106_tfilt",
+        "size": 1
+    },
+    {
+        "group": 27,
+        "imports": [
+            "106_tfilt"
+        ],
+        "name": "107_melodic",
+        "size": 1
+    },
+    {
+        "group": 28,
+        "imports": [],
+        "name": "108_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 28,
+        "imports": [
+            "108_calcthresh"
+        ],
+        "name": "109_susan",
+        "size": 1
+    },
+    {
+        "group": 28,
+        "imports": [
+            "109_susan"
+        ],
+        "name": "110_tfilt",
+        "size": 1
+    },
+    {
+        "group": 28,
+        "imports": [
+            "110_tfilt"
+        ],
+        "name": "111_melodic",
+        "size": 1
+    },
+    {
+        "group": 29,
+        "imports": [],
+        "name": "112_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 29,
+        "imports": [
+            "112_calcthresh"
+        ],
+        "name": "113_susan",
+        "size": 1
+    },
+    {
+        "group": 29,
+        "imports": [
+            "113_susan"
+        ],
+        "name": "114_tfilt",
+        "size": 1
+    },
+    {
+        "group": 29,
+        "imports": [
+            "114_tfilt"
+        ],
+        "name": "115_melodic",
+        "size": 1
+    },
+    {
+        "group": 30,
+        "imports": [],
+        "name": "116_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 30,
+        "imports": [
+            "116_calcthresh"
+        ],
+        "name": "117_susan",
+        "size": 1
+    },
+    {
+        "group": 30,
+        "imports": [
+            "117_susan"
+        ],
+        "name": "118_tfilt",
+        "size": 1
+    },
+    {
+        "group": 30,
+        "imports": [
+            "118_tfilt"
+        ],
+        "name": "119_melodic",
+        "size": 1
+    },
+    {
+        "group": 31,
+        "imports": [],
+        "name": "120_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 31,
+        "imports": [
+            "120_calcthresh"
+        ],
+        "name": "121_susan",
+        "size": 1
+    },
+    {
+        "group": 31,
+        "imports": [
+            "121_susan"
+        ],
+        "name": "122_tfilt",
+        "size": 1
+    },
+    {
+        "group": 31,
+        "imports": [
+            "122_tfilt"
+        ],
+        "name": "123_melodic",
+        "size": 1
+    },
+    {
+        "group": 32,
+        "imports": [],
+        "name": "124_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 32,
+        "imports": [
+            "124_calcthresh"
+        ],
+        "name": "125_susan",
+        "size": 1
+    },
+    {
+        "group": 32,
+        "imports": [
+            "125_susan"
+        ],
+        "name": "126_tfilt",
+        "size": 1
+    },
+    {
+        "group": 32,
+        "imports": [
+            "126_tfilt"
+        ],
+        "name": "127_melodic",
+        "size": 1
+    },
+    {
+        "group": 33,
+        "imports": [],
+        "name": "128_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 33,
+        "imports": [
+            "128_calcthresh"
+        ],
+        "name": "129_susan",
+        "size": 1
+    },
+    {
+        "group": 33,
+        "imports": [
+            "129_susan"
+        ],
+        "name": "130_tfilt",
+        "size": 1
+    },
+    {
+        "group": 33,
+        "imports": [
+            "130_tfilt"
+        ],
+        "name": "131_melodic",
+        "size": 1
+    },
+    {
+        "group": 34,
+        "imports": [],
+        "name": "132_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 34,
+        "imports": [
+            "132_calcthresh"
+        ],
+        "name": "133_susan",
+        "size": 1
+    },
+    {
+        "group": 34,
+        "imports": [
+            "133_susan"
+        ],
+        "name": "134_tfilt",
+        "size": 1
+    },
+    {
+        "group": 34,
+        "imports": [
+            "134_tfilt"
+        ],
+        "name": "135_melodic",
+        "size": 1
+    },
+    {
+        "group": 35,
+        "imports": [],
+        "name": "136_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 35,
+        "imports": [
+            "136_calcthresh"
+        ],
+        "name": "137_susan",
+        "size": 1
+    },
+    {
+        "group": 35,
+        "imports": [
+            "137_susan"
+        ],
+        "name": "138_tfilt",
+        "size": 1
+    },
+    {
+        "group": 35,
+        "imports": [
+            "138_tfilt"
+        ],
+        "name": "139_melodic",
+        "size": 1
+    },
+    {
+        "group": 36,
+        "imports": [],
+        "name": "140_calcthresh",
+        "size": 1
+    },
+    {
+        "group": 36,
+        "imports": [
+            "140_calcthresh"
+        ],
+        "name": "141_susan",
+        "size": 1
+    },
+    {
+        "group": 36,
+        "imports": [
+            "141_susan"
+        ],
+        "name": "142_tfilt",
+        "size": 1
+    },
+    {
+        "group": 36,
+        "imports": [
+            "142_tfilt"
+        ],
+        "name": "143_melodic",
+        "size": 1
+    }
+]

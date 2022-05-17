@@ -2,12 +2,13 @@ import os
 import sys
 from os.path import join, pardir
 sys.path.append(pardir)
+import bids
 from bids import BIDSLayout
 from itertools import product, chain
 from nipype.pipeline.engine import Workflow
 from ica_wf import make_subject_ica_wf
 
-def get_datapaths(bids_layout, subject, session, run, task, space, outdir):
+def get_datapaths(bids_layout, outdir, subject, session, run, task, space):
     """
     Extract mask and bold file paths for one subject for one task
     of one run for one type of space etc.
@@ -47,8 +48,7 @@ def get_datapaths(bids_layout, subject, session, run, task, space, outdir):
                    f'sub-{subject}_ses-{session}_task-{task}_run-{run}_space-{space}-melodic')
     return bold_file, mask_file, out_dir
 
-def return_datapaths(bids_layout, outdir, subject="all", session="all", run="all",
-               task="all", space="all"):
+def return_datapaths(bids_layout, outdir, subject="all", session="all", run="all", task="all", space="all"):
     """
     Check if all data paths or only specific paths are asked for and return full paths.
     
@@ -77,7 +77,7 @@ def return_datapaths(bids_layout, outdir, subject="all", session="all", run="all
     # create all parameter combinations and get their paths
     combinations = list(product(subject, session, run, task, space))
     boldfiles_nested, maskfiles_nested, outdirs_nested = zip(*[
-        get_datapaths(bids_layout, *params, outdir) for params in combinations
+        get_datapaths(bids_layout, outdir, *params) for params in combinations
     ])
     outdirs = list(outdirs_nested)
     boldfiles = [val for sublist in boldfiles_nested for val in sublist]
@@ -90,7 +90,7 @@ def return_datapaths(bids_layout, outdir, subject="all", session="all", run="all
     
     return boldfiles, maskfiles, outdirs
 
-def make_dataset_ica(bidsdata_dir, base_dir, out_dir, tr=1.5, hpf=80., fwhm=4.):
+def make_dataset_ica(bidsdata_dir, base_dir, output_dir, tr=1.5, hpf=80., fwhm=4.):
     """
     From a BIDS dataset, search for all bold and mask files and
     then calculate ICs.
@@ -106,12 +106,19 @@ def make_dataset_ica(bidsdata_dir, base_dir, out_dir, tr=1.5, hpf=80., fwhm=4.):
     Output:
         folder incl. calculated ICs
     """
+    print("In make_dataset_ica:\n bidsdata_dir: ", bidsdata_dir)
+    print(" base_dir: ", base_dir)
+    print(" out_dir: ", output_dir)
+
     # The 'layout' function can throw error if derivatives are not saved inside
     # the BIDS dataset as a folder called 'derivatives', and also if the
     # json description file does not include ... [to-be-added]
     
     layout = BIDSLayout(bidsdata_dir, derivatives=True) 
-    boldlist, masklist, outdirlist = return_datapaths(layout, out_dir)
+    boldlist, masklist, outdirlist = return_datapaths(layout, output_dir)
+    #print("In make_dataset_ica:\n boldlist: ", boldlist)
+    #print(" masklist: ", masklist)
+    #print(" outdirlist: ", outdirlist)
     
     runwfs = []
     runwf = make_subject_ica_wf()

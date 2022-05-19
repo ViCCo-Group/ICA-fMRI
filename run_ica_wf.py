@@ -90,7 +90,7 @@ def return_datapaths(bids_layout, outdir, subject="all", session="all", run="all
     
     return boldfiles, maskfiles, outdirs
 
-def make_dataset_ica(bidsdata_dir, base_dir, output_dir, tr=1.5, hpf=80., fwhm=4.):
+def make_dataset_ica(bidsdata_dir, base_dir, tr=1.5, fwhm=4.):
     """
     From a BIDS dataset, search for all bold and mask files and
     then calculate ICs.
@@ -98,35 +98,32 @@ def make_dataset_ica(bidsdata_dir, base_dir, output_dir, tr=1.5, hpf=80., fwhm=4
     Input:
         bidsdata_dir = '/LOCAL/jzerbe/faces_vs_houses/ds002938'
         base_dir = '/LOCAL/jzerbe/temp_results'
-        out_dir = '/LOCAL/jzerbe/temp_results/melodic'  # TODO: change to bidsdata_dir + /melodic?
     Optional input:
         tr = 1.5
-        hpf = 80. # 120./TR
         fwhm = 4.0
     Output:
         folder incl. calculated ICs
     """
-    print("In make_dataset_ica:\n bidsdata_dir: ", bidsdata_dir)
-    print(" base_dir: ", base_dir)
-    print(" out_dir: ", output_dir)
-
-    # The 'layout' function can throw error if derivatives are not saved inside
-    # the BIDS dataset as a folder called 'derivatives', and also if the
-    # json description file does not include ... [to-be-added]
-    
+    # Check for correct input
+    if bidsdata_dir in ("", None):
+        print("[ERROR] The path to your dataset is missing. Please give an input like -d /path/to/dataset")
+        sys.exit()
+    if base_dir in ("", None):
+        print("[ERROR] The path to your base directory is missing. Please give an input like -b /path/to/base")
+        sys.exit()
+    output_dir = join(bidsdata_dir, 'derivatives', 'melodic')
+    hpf = 120. / tr
     layout = BIDSLayout(bidsdata_dir, derivatives=True) 
     boldlist, masklist, outdirlist = return_datapaths(layout, output_dir)
-    #print("In make_dataset_ica:\n boldlist: ", boldlist)
-    #print(" masklist: ", masklist)
-    #print(" outdirlist: ", outdirlist)
     
+    # Create meta workflow from single subject workflows
     runwfs = []
     runwf = make_subject_ica_wf()
     runwf.inputs.inputspec.hpf = hpf
     runwf.inputs.inputspec.tr = tr
     runwf.inputs.inputspec.fwhm = fwhm
     runwf.base_dir = base_dir
-    i = 1 # iterator to rename workflow
+    i = 1 # iterator to rename sub-workflow
 
     for boldfile, maskfile, outdir in zip(boldlist, masklist, outdirlist):       
         runwf.inputs.inputspec.bold_file = boldfile
@@ -135,7 +132,7 @@ def make_dataset_ica(bidsdata_dir, base_dir, output_dir, tr=1.5, hpf=80., fwhm=4
         runwf.name = join(f'node_{i}')
         
         wf_name = join(f'melodicwf_{i}')
-        wf_cloned = runwf.clone(wf_name) # clone workflow with new name
+        wf_cloned = runwf.clone(wf_name) # clone sub-workflow with new name
         runwfs.append(wf_cloned)
         i += 1
     

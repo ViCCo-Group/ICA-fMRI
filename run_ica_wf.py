@@ -45,7 +45,7 @@ def get_datapaths(bids_layout, outdir, subject, session, run, task, space):
                         )
     out_dir = join(outdir,
                    f'sub-{subject}',
-                   f'sub-{subject}_ses-{session}_task-{task}_run-{run}_space-{space}-melodic')
+                   f'sub-{subject}_ses-{session}_task-{task}_run-{run}_space-{space}_melodic')
     return bold_file, mask_file, out_dir
 
 def return_datapaths(bids_layout, outdir, subject="all", session="all", run="all", task="all", space="all"):

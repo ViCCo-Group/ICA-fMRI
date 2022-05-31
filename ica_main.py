@@ -16,6 +16,7 @@ def parse_args_and_start_ica(argv):
     # TODO: add optional input (tr, hpf, fwhm) & (subject, session, run, etc.)
     arg_dataset = ""
     arg_base = ""
+    arg_subj = "all"
     arg_tr = float(1.5)
     arg_fwhm = float(4.)
     arg_help = """
@@ -30,7 +31,7 @@ def parse_args_and_start_ica(argv):
         
     SYNTAX
         python {0} [--dataset] <path> [--base] <path>
-        [[--tr] <float>] [[--fwhm] <float>]
+        [[--subj] <list>] [[--tr] <float>] [[--fwhm] <float>]
     
     ARGUMENTS
         --dataset -d
@@ -38,14 +39,17 @@ def parse_args_and_start_ica(argv):
             
         --base -b
             Path to base directory. The working directory will be stored here.
+            
+        --subj -s
+            List of subject IDs. Subject IDs have be strings. Defaults to "all".
         
         --tr -t
             (optional)
-            Temporal resolution. Defaults to 1.5
+            Temporal resolution. Defaults to 1.5.
         
         --fwhm -f 
             (optional)
-            Full-width-half-maximum. Defaults to 4.0
+            Full-width-half-maximum. Defaults to 4.0.
             
     ------------------------- EXAMPLE -------------------------------
     
@@ -53,7 +57,7 @@ def parse_args_and_start_ica(argv):
     
     """.format(argv[0]) 
     try:
-        opts, args = getopt.getopt(argv[1:], "hd:b:t:f:", ["help", "dataset=", "base=", "tr=", "fwhm="])
+        opts, args = getopt.getopt(argv[1:], "hd:b:s:t:f:", ["help", "dataset=", "base=", "subject=", "tr=", "fwhm="])
     except:
         print(arg_help)
         sys.exit(2)
@@ -72,12 +76,15 @@ def parse_args_and_start_ica(argv):
                 print("[ERROR] Your base directory cannot be found. Please enter a valid path.")
                 sys.exit()
             arg_base = arg
+        elif opt in ("-s", "--subj"):
+            arg_subj = float(arg)
         elif opt in ("-t", "--tr"):
             arg_tr = float(arg)
         elif opt in ("-f", "--fwhm"):
             arg_fwhm = float(arg)
     
-    make_dataset_ica(arg_dataset, arg_base, arg_tr, arg_fwhm)
+    make_dataset_ica(arg_dataset, arg_base, arg_subj, arg_tr, arg_fwhm)
 
 if __name__ == "__main__":    
     parse_args_and_start_ica(sys.argv)
+    print("\nICA Melodic pipeline finished.")

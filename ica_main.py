@@ -13,7 +13,6 @@ def parse_args_and_start_ica(argv):
     Private Example (how to call the whole file from shell):
     python3 ica_main.py -d /LOCAL/jzerbe/faces_vs_houses/ds002938 -b /LOCAL/jzerbe/temp_results
     """
-    # TODO: add optional input (tr, hpf, fwhm) & (subject, session, run, etc.)
     arg_dataset = ""
     arg_base = ""
     arg_subj = "all"
@@ -41,7 +40,7 @@ def parse_args_and_start_ica(argv):
             Path to base directory. The working directory will be stored here.
             
         --subj -s
-            List of subject IDs. Subject IDs have be strings. Defaults to "all".
+            List of subject IDs as strings, i.e. ['01', '05']. Defaults to "all".
         
         --tr -t
             (optional)

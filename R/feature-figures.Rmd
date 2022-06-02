@@ -1,0 +1,110 @@
+---
+title: "Feature figures"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(here)
+library(plotly)
+```
+
+## Single datasets
+```{r}
+df.faces <- read_csv(here("results", "df_features_faces-vs-houses.csv")) %>%
+  mutate(dataset = "faces")
+hfc_faces <- df.faces %>% 
+  ggplot(
+    aes(x = hfc, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="HFC | Faces vs Houses")
+
+hfc_faces
+```
+
+```{r}
+edgefrac_faces <- df.faces %>% 
+  ggplot(
+    aes(x = edgefrac, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge fraction | Faces vs Houses")
+
+edgefrac_faces
+  
+```
+
+```{r}
+df.emotion <- read_csv(here("results", "df_features_emotion-category.csv")) %>% 
+  mutate(dataset="emotion") %>% 
+  subset(task != "rest")
+hfc_emotion <- df.emotion %>% 
+  ggplot(
+    aes(x=hfc, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="HFC | Emotion Category")
+hfc_emotion
+```
+
+```{r}
+edgefrac_emotion <- df.emotion %>% 
+  ggplot(
+    aes(x = edgefrac, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge fraction | Emotion Category")
+edgefrac_emotion
+```
+
+```{r}
+df.auditory <- read_csv(here("results", "df_features_auditory-vs-visual.csv")) %>% 
+  mutate(dataset = "auditory")
+hfc_auditory <- df.auditory %>% 
+  ggplot(
+    aes(x = hfc, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="HFC | Auditory vs Visual")
+hfc_emotion
+```
+
+```{r}
+edgefrac_auditory <- df.auditory %>% 
+  ggplot(
+    aes(x = edgefrac, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge fraction | Auditory vs Visual")
+edgefrac_auditory
+```
+
+## All datasets
+```{r}
+df.all <- df.faces %>% 
+  merge(df.emotion, all=TRUE) %>% 
+  merge(df.auditory, all=TRUE) %>% 
+  arrange(dataset)
+df.all
+```
+
+```{r}
+hfc_all <- df.all %>%
+  ggplot(
+    aes(x = hfc, color=dataset, fill=dataset)) +
+  geom_density(alpha=0.5) +
+  labs(title="HFC | All datasets") +
+  facet_wrap(~df.all$space)
+hfc_all
+```
+
+```{r}
+edgefrac_all <- df.all %>%
+  ggplot(
+    aes(x = edgefrac, color=dataset, fill=dataset)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge fraction | All datasets") +
+  facet_wrap(~df.all$space)
+edgefrac_all
+```
+
+```{r}
+ggsave("all-datasets_edgefrac.jpg", edgefrac_all, path=here("figures"),width=12, height=4)
+ggsave("all-datasets_hfc.jpg", hfc_all, path=here("figures"),width=12, height=4)
+```
+

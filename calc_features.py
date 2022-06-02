@@ -145,13 +145,13 @@ if __name__ == "__main__":
             Path to the BIDS dataset.
             
         --name -n
-            Name of dataset. Used to name the resulting data frame.
+            Name of dataset. Used for result, i.e. df_features_<ds-name>.csv
             
         --help -h
             
     ------------------------- EXAMPLE -------------------------------
     
-    python3 {0} -d /path/to/dataset/ds00xxxx -n my-dataset
+    python3 {0} -d /path/to/dataset/ds00xxxx -n ds-name
 
     """.format(sys.argv[0])
     try:

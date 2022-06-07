@@ -62,7 +62,7 @@ hfc_auditory <- df.auditory %>%
     aes(x = hfc, color=space, fill=space)) +
   geom_density(alpha=0.5) +
   labs(title="HFC | Auditory vs Visual")
-hfc_emotion
+hfc_auditory
 ```
 
 ```{r}

@@ -116,13 +116,14 @@ def calculate_features(bidsdata_dir):
         edgemask, brainmask = get_edge_mask(metainfo_dict, ds_layout)
             
         for comp_i in range(mixmat.shape[-1]):
+            results_dict = metainfo_dict
             comp_arr = comps_arr[:, :, :, comp_i]
             comp_ts = mixmat[:, comp_i]
             # Calculate edge fraction
-            metainfo_dict['edgefrac'] = calc_edgefrac(comp_arr, edgemask, brainmask)
+            results_dict['edgefrac'] = calc_edgefrac(comp_arr, edgemask, brainmask)
             # Calculate high frequency content
-            metainfo_dict['hfc'] = calc_hfc(comp_ts)
-            results_dicts.append(metainfo_dict)
+            results_dict['hfc'] = calc_hfc(comp_ts)
+            results_dicts.append(results_dict)
     return results_dicts
 
 if __name__ == "__main__":

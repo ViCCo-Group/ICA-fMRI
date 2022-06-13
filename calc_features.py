@@ -4,6 +4,7 @@ import getopt
 import numpy as np
 import pandas as pd
 from nilearn.image import load_img, threshold_img, math_img, resample_to_img
+from nilearn.masking import intersect_masks, apply_mask
 from scipy.ndimage.morphology import binary_erosion
 from scipy.signal import periodogram
 from os.path import join, pardir
@@ -68,6 +69,58 @@ def get_edge_mask(metainfo_dict, ds_layout):
     edgemask = mask_arr - ero_mask
     return edgemask.astype(bool), brainmask.astype(bool)
 
+def get_gmfiles(metainfo_dict, ds_layout):
+    """ ... """
+    bmask_f = ds_layout.get(
+        scope='derivatives',
+        return_type='filename',
+        subject=metainfo_dict['subject'],
+        session=metainfo_dict['session'],
+        run=metainfo_dict['run'],
+        task=metainfo_dict['task'],
+        space=metainfo_dict['space'],
+        desc='brain',
+        suffix='mask',
+        extension='nii.gz'
+    )
+    aseg_f = ds_layout.get(
+        scope='derivatives',
+        return_type='filename',
+        subject=metainfo_dict['subject'],
+        session=metainfo_dict['session'],
+        run=metainfo_dict['run'],
+        task=metainfo_dict['task'],
+        space=metainfo_dict['space'],
+        desc='aseg',
+        suffix='dseg',
+        extension='nii.gz'
+    )
+    # aseg2gm
+    gm_left = math_img('img == 3', img=aseg_f)
+    gm_right = math_img('img == 42', img=aseg_f)
+    gm = intersect_masks([gm_left, gm_right], threshold=0, connected=False)
+    return bmask_f[0], gm
+
+def get_zstat_and_power(comp_i, ds_layout, metainfo_dict):
+    """Retrieve melodic thresh_zstat file for gray matter feature."""
+    comp_fs = ds_layout.get(
+        scope='melodic',
+        subject=metainfo_dict['subject'],
+        return_type='filename',
+        suffix=f'zstat{comp_i}',
+        extension='nii.gz'
+    )
+    comp_f = [s for s in comp_fs if metainfo_dict['directory'] in s]
+    power_list = ds_layout.get(
+        scope='melodic',
+        subject=metainfo_dict['subject'],
+        return_type='filename',
+        suffix=f'f{comp_i}',
+        extension='txt'
+    )
+    power_f = [s for s in power_list if metainfo_dict['directory'] in s]
+    return comp_f[0], power_f[0]
+
 def calc_edgefrac(comp_arr, edgemask, brainmask):
     """Calculate edge fraction."""
     return np.absolute(comp_arr[edgemask]).sum() / np.absolute(comp_arr[brainmask]).sum()
@@ -81,6 +134,35 @@ def calc_hfc(timeseries, tr=1.5):
     hfc = freqs[freqind] / nf
     return hfc
 
+def calc_gm_prop(comp_f, bmask_f, gm):
+    """
+    Calculate the proportion of the (active) gray matter voxels of a volume
+    compared to the whole number of gray voxels in the brain.
+    """
+    # count significant voxels in gray matter
+    comp_gm = apply_mask(comp_f, gm)
+    nsig_gm = np.sum(comp_gm > 0.)
+    # count significant voxels in whole brain
+    comp_brain = apply_mask(comp_f, bmask_f)
+    nsig_brain = np.sum(comp_brain > 0.)
+    # return ratio
+    gm_prop = nsig_gm / nsig_brain
+    return gm_prop
+
+def calc_pss(power_f):
+    """
+    Calculate the power spectrum skewness (pss) by comparing the
+    lower third of an IC's frequency with whole power spectrum.
+    """
+    power_arr = np.loadtxt(power_f, dtype=np.float)
+    # Check how much of the power lies (roughly) in the 'lower third'
+    power_ic = np.trapz(power_arr[:round(len(power_arr)*0.35)])
+    power_all = np.trapz(power_arr[:len(power_arr)])
+    # Compare to overall power of IC
+    pss = power_ic/power_all
+    return pss
+
+# Main function feature calculation
 def calculate_features(bidsdata_dir):
     """Get dict with calculated features for each melodic run."""
     melodic_base_dir = join(bidsdata_dir, 'derivatives', 'melodic')
@@ -114,15 +196,30 @@ def calculate_features(bidsdata_dir):
         }
         mixmat, comps_arr = get_comps(metainfo_dict)
         edgemask, brainmask = get_edge_mask(metainfo_dict, ds_layout)
+        bmask_f, gm = get_gmfiles(metainfo_dict, ds_layout)
             
         for comp_i in range(mixmat.shape[-1]):
-            results_dict = metainfo_dict
+            results_dict = {
+                'subject': metainfo_dict['subject'],
+                'session': metainfo_dict['session'],
+                'task': metainfo_dict['task'],
+                'run': metainfo_dict['run'],
+                'space': metainfo_dict['space'],
+                'directory': metainfo_dict['directory'],
+                'fullpath': metainfo_dict['fullpath']
+            }
             comp_arr = comps_arr[:, :, :, comp_i]
             comp_ts = mixmat[:, comp_i]
+            # Get IC stat file for gm prop
+            comp_f, power_f = get_zstat_and_power((comp_i + 1), ds_layout, metainfo_dict)
             # Calculate edge fraction
             results_dict['edgefrac'] = calc_edgefrac(comp_arr, edgemask, brainmask)
             # Calculate high frequency content
             results_dict['hfc'] = calc_hfc(comp_ts)
+            # Calculate gray matter proportion
+            results_dict['gmp'] = calc_gm_prop(comp_f, bmask_f, gm)
+            # Calculate power spectrum skewness
+            results_dict['pss'] = calc_pss(power_f)
             results_dicts.append(results_dict)
     return results_dicts
 

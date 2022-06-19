@@ -11,6 +11,7 @@ from os.path import join, pardir
 sys.path.append(pardir)
 from bids import BIDSLayout
 from tqdm import tqdm
+import copy
 
 # Helper functions
 def get_comps(metainfo_dict):
@@ -67,22 +68,22 @@ def get_edge_mask(metainfo_dict, ds_layout):
     edgefrac_thickness = int(2)
     ero_mask = binary_erosion(mask_arr, iterations=edgefrac_thickness).astype(int)
     edgemask = mask_arr - ero_mask
-    return edgemask.astype(bool), brainmask.astype(bool)
+    return edgemask.astype(bool), brainmask.astype(bool), brainmask_f
 
 def get_gmfiles(metainfo_dict, ds_layout):
     """ ... """
-    bmask_f = ds_layout.get(
-        scope='derivatives',
-        return_type='filename',
-        subject=metainfo_dict['subject'],
-        session=metainfo_dict['session'],
-        run=metainfo_dict['run'],
-        task=metainfo_dict['task'],
-        space=metainfo_dict['space'],
-        desc='brain',
-        suffix='mask',
-        extension='nii.gz'
-    )
+    #bmask_f = ds_layout.get(
+    #    scope='derivatives',
+    #    return_type='filename',
+    #    subject=metainfo_dict['subject'],
+    #    session=metainfo_dict['session'],
+    #    run=metainfo_dict['run'],
+    #    task=metainfo_dict['task'],
+    #    space=metainfo_dict['space'],
+    #    desc='brain',
+    #    suffix='mask',
+    #    extension='nii.gz'
+    #)
     aseg_f = ds_layout.get(
         scope='derivatives',
         return_type='filename',
@@ -99,7 +100,7 @@ def get_gmfiles(metainfo_dict, ds_layout):
     gm_left = math_img('img == 3', img=aseg_f)
     gm_right = math_img('img == 42', img=aseg_f)
     gm = intersect_masks([gm_left, gm_right], threshold=0, connected=False)
-    return bmask_f[0], gm
+    return gm #bmask_f[0]
 
 def get_zstat_and_power(comp_i, ds_layout, metainfo_dict):
     """Retrieve melodic thresh_zstat file for gray matter feature."""
@@ -120,6 +121,23 @@ def get_zstat_and_power(comp_i, ds_layout, metainfo_dict):
     )
     power_f = [s for s in power_list if metainfo_dict['directory'] in s]
     return comp_f[0], power_f[0]
+
+def get_zstat_power(ds_layout, metainfo_dict):
+    comp_fs = ds_layout.get(
+        scope='melodic',
+        subject=metainfo_dict['subject'],
+        return_type='filename',
+        extension='nii.gz')
+    power_fs = ds_layout.get(
+        scope='melodic',
+        subject=metainfo_dict['subject'],
+        return_type='filename',
+        extension='txt')
+    criteria_c = [metainfo_dict['directory'], 'zstat']
+    criteria_p = [metainfo_dict['directory'], 'report/f']
+    comp_list = [s for s in comp_fs if all([c in s for c in criteria_c])]
+    power_list = [s for s in power_fs if all([c in s for c in criteria_p])]
+    return comp_list, power_list
 
 def calc_edgefrac(comp_arr, edgemask, brainmask):
     """Calculate edge fraction."""
@@ -195,23 +213,27 @@ def calculate_features(bidsdata_dir):
             'fullpath':'/'.join(melodic_dir_split[:-1])
         }
         mixmat, comps_arr = get_comps(metainfo_dict)
-        edgemask, brainmask = get_edge_mask(metainfo_dict, ds_layout)
-        bmask_f, gm = get_gmfiles(metainfo_dict, ds_layout)
+        edgemask, brainmask, bmask_f = get_edge_mask(metainfo_dict, ds_layout)
+        gm = get_gmfiles(metainfo_dict, ds_layout) #bmask_f
+        comp_list, power_list = get_zstat_power(ds_layout, metainfo_dict)
             
         for comp_i in range(mixmat.shape[-1]):
-            results_dict = {
-                'subject': metainfo_dict['subject'],
-                'session': metainfo_dict['session'],
-                'task': metainfo_dict['task'],
-                'run': metainfo_dict['run'],
-                'space': metainfo_dict['space'],
-                'directory': metainfo_dict['directory'],
-                'fullpath': metainfo_dict['fullpath']
-            }
+            #results_dict = {
+            #    'subject': metainfo_dict['subject'],
+            #    'session': metainfo_dict['session'],
+            #    'task': metainfo_dict['task'],
+            #    'run': metainfo_dict['run'],
+            #    'space': metainfo_dict['space'],
+            #    'directory': metainfo_dict['directory'],
+            #    'fullpath': metainfo_dict['fullpath']
+            #}
+            results_dict = copy.deepcopy(metainfo_dict)
             comp_arr = comps_arr[:, :, :, comp_i]
             comp_ts = mixmat[:, comp_i]
             # Get IC stat file for gm prop
-            comp_f, power_f = get_zstat_and_power((comp_i + 1), ds_layout, metainfo_dict)
+            #comp_f, power_f = get_zstat_and_power((comp_i + 1), ds_layout, metainfo_dict)
+            comp_f = comp_list[comp_i]
+            power_f = power_list[comp_i]
             # Calculate edge fraction
             results_dict['edgefrac'] = calc_edgefrac(comp_arr, edgemask, brainmask)
             # Calculate high frequency content

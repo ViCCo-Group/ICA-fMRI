@@ -9,9 +9,13 @@ library(here)
 library(plotly)
 ```
 
-## Single datasets
+# Single datasets
+
+
+## Faces vs houses
+
 ```{r}
-df.faces <- read_csv(here("results", "df_features_faces-vs-houses.csv")) %>%
+df.faces <- read_csv(here("results", "df_features_faces-vs-houses-incl-pss.csv")) %>%
   mutate(dataset = "faces")
 hfc_faces <- df.faces %>% 
   ggplot(
@@ -34,6 +38,42 @@ edgefrac_faces
 ```
 
 ```{r}
+gmp_faces <- df.faces %>% 
+  ggplot(
+    aes(x = gmp, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="Gray Matter Proportion | Faces vs Houses")
+
+gmp_faces
+  
+```
+
+```{r}
+gmp_subject_faces <- df.faces %>% 
+  ggplot(
+    aes(x = gmp, color=subject, fill=subject)) +
+  geom_density(alpha=0.5) +
+  facet_wrap(~df.faces$subject) +
+  labs(title="Gray Matter Proportion | Faces vs Houses")
+
+gmp_subject_faces
+  
+```
+
+```{r}
+pss_faces <- df.faces %>% 
+  ggplot(
+    aes(x = pss, color=space, fill=space)) +
+  geom_density(alpha=0.5) +
+  labs(title="Power Spectrum Skewness | Faces vs Houses")
+
+pss_faces
+  
+```
+
+## Emotion Category
+
+```{r}
 df.emotion <- read_csv(here("results", "df_features_emotion-category.csv")) %>% 
   mutate(dataset="emotion") %>% 
   subset(task != "rest")
@@ -53,7 +93,37 @@ edgefrac_emotion <- df.emotion %>%
   labs(title="Edge fraction | Emotion Category")
 edgefrac_emotion
 ```
+```{r}
+df.emotion_T1w <- df.emotion %>%
+  subset(space == "MNI152NLin2009cAsym") %>% # T1w, MNI152NLin2009cAsym
+  transform(run = as.character(run))
 
+str(df.emotion_T1w)
+```
+
+
+```{r}
+edgefrac_emotion_all <- df.emotion_T1w %>%
+  ggplot(
+    aes(x = edgefrac, color=subject, fill=subject)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge Fraction | All subjects | Emotion Category") +
+  facet_wrap(~df.emotion_T1w$subject)
+edgefrac_emotion_all
+```
+
+```{r}
+edgefrac_emotion_all_oneplot <- df.emotion_T1w %>%
+  ggplot(
+    aes(x = edgefrac, color=run, fill=run)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge Fraction | All runs | Emotion Category") +
+  facet_wrap(~df.emotion_T1w$subject)
+edgefrac_emotion_all_oneplot
+```
+
+
+## Auditory vs Visual
 ```{r}
 df.auditory <- read_csv(here("results", "df_features_auditory-vs-visual.csv")) %>% 
   mutate(dataset = "auditory")
@@ -72,6 +142,33 @@ edgefrac_auditory <- df.auditory %>%
   geom_density(alpha=0.5) +
   labs(title="Edge fraction | Auditory vs Visual")
 edgefrac_auditory
+```
+
+```{r}
+df.auditory_MNI <- df.auditory %>%
+  subset(space == "MNI152NLin2009cAsym")
+
+df.auditory_MNI
+```
+
+```{r}
+edgefrac_auditory_all <- df.auditory_MNI %>%
+  ggplot(
+    aes(x = edgefrac, color=subject, fill=subject)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge Fraction | All subjects | Auditory vs Visual") +
+  facet_wrap(~df.auditory_T1w$subject)
+edgefrac_auditory_all
+```
+
+```{r}
+edgefrac_auditory_all_oneplot <- df.auditory_MNI %>%
+  ggplot(
+    aes(x = edgefrac, color=task, fill=task)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge Fraction | All tasks | Auditory vs Visual") #+
+  #facet_wrap(~df.auditory_T1w$subject)
+edgefrac_auditory_all_oneplot
 ```
 
 ## All datasets
@@ -104,7 +201,24 @@ edgefrac_all
 ```
 
 ```{r}
-ggsave("all-datasets_edgefrac.jpg", edgefrac_all, path=here("figures"),width=12, height=4)
-ggsave("all-datasets_hfc.jpg", hfc_all, path=here("figures"),width=12, height=4)
+edgefrac_all_MNI <- df.all %>%
+  subset(space == "MNI152NLin2009cAsym")
+
+```
+
+
+```{r}
+edgefrac_all <- edgefrac_all_MNI %>%
+  ggplot(
+    aes(x = edgefrac, color=dataset, fill=dataset)) +
+  geom_density(alpha=0.5) +
+  labs(title="Edge fraction | All datasets") #+
+  #facet_wrap(~df.all$subject)
+edgefrac_all
+```
+
+```{r}
+#ggsave("all-datasets_edgefrac.jpg", edgefrac_all, path=here("figures"),width=12, height=4)
+ggsave("faces-vs-houses_gmp_single-subjects.jpg", gmp_subject_faces, path=here("figures"),width=6, height=4) #width=12
 ```
 
